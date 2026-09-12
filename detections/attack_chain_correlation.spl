@@ -1,0 +1,19 @@
+# ============================================================
+# Attack Chain Correlation
+# Project: Splunk RBA Attack Chain Detection
+#
+# Correlates three attack stages on the same host within
+# a 15-minute window and triggers when total risk exceeds 50.
+# ============================================================
+
+index=risk_index sourcetype=risk_event earliest=-15m
+| stats 
+    max(eval(if(annotation="Multiple SSH auth failures", risk_score, 0))) as ssh_risk
+    max(eval(if(annotation="Sudoers file modified", risk_score, 0))) as privilege_risk
+    max(eval(if(annotation="Possible data exfiltration", risk_score, 0))) as exfil_risk
+    values(annotation) as attack_stages
+    by risk_object
+| eval total_risk=ssh_risk + privilege_risk + exfil_risk
+| where ssh_risk > 0 AND privilege_risk > 0 AND exfil_risk > 0
+| where total_risk > 50
+| sort - total_risk
