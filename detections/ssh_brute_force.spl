@@ -1,0 +1,16 @@
+# ============================================================
+# SSH Brute-Force Detection
+# Project: Splunk RBA Attack Chain Detection
+#
+# Detects failed SSH authentication attempts and generates
+# a risk event with a score of 10.
+# ============================================================
+
+index=soc_lab sourcetype=linux_secure "Failed password"
+| eval risk_score=10
+| eval risk_object=src_ip
+| eval risk_object_type="system"
+| eval annotation="Multiple SSH auth failures"
+| eval sourcetype="risk_event"
+| eval source="RBA - SSH BRUTE FORCE"
+| collect index=risk_index output_format=hec
