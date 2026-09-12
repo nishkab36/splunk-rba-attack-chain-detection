@@ -38,7 +38,7 @@ When all three behaviors occur on the same host within 15 minutes, the combined 
 
 ## Architecture
 
-![Architecture](architecture/architecture.png)
+![Architecture](architecture/Architecture.png)
 
 The detection pipeline follows:
 
@@ -54,7 +54,7 @@ A controlled SSH brute-force simulation is performed against a local test accoun
 
 Failed SSH authentication events are collected from Linux secure logs and assigned a risk score of **10**.
 
-![SSH Brute Force](screenshots/01-attack-simulation/01-ssh-brute-force.png)
+![SSH Brute Force](screenshots/01-attack-simulation/hydra-ssh-bruteforce.png)
 
 #### Detection Result
 
@@ -70,7 +70,7 @@ Linux Auditd monitors changes to the sudoers file and generates telemetry for th
 
 The behavior is assigned a risk score of **25**.
 
-![Privilege Escalation](screenshots/01-attack-simulation/02-privilege-escalation.png)
+![Privilege Escalation](screenshots/01-attack-simulation/privilege-escalation.png)
 
 #### Detection Result
 
@@ -86,7 +86,7 @@ Auditd is configured to monitor execution of `/usr/bin/curl`, providing `EXECVE`
 
 The behavior is assigned a risk score of **40**.
 
-![Data Exfiltration](screenshots/01-attack-simulation/03-data-exfiltration.png)
+![Data Exfiltration](screenshots/01-attack-simulation/data-exfiltration.png)
 
 #### Detection Result
 
@@ -105,7 +105,7 @@ The behavior is assigned a risk score of **40**.
 
 The final correlation successfully identified the complete attack chain on the same host with a total risk score of **75**.
 
-![Attack Chain Correlation](screenshots/attack-chain-correlation-75.png)
+![Attack Chain Correlation](screenshots/attack-chain-correlation.png)
 
 ---
 
