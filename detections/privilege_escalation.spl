@@ -1,0 +1,16 @@
+# ============================================================
+# Privilege Escalation Detection
+# Project: Splunk RBA Attack Chain Detection
+#
+# Detects changes to the sudoers file and generates
+# a risk event with a score of 25.
+# ============================================================
+
+index=soc_lab sourcetype=linux_audit key="sudoers_changes"
+| eval risk_score=25
+| eval risk_object=host
+| eval risk_object_type="system"
+| eval annotation="Sudoers file modified"
+| eval sourcetype="risk_event"
+| eval source="RBA - PRIVILEGE ESCALATION"
+| collect index=risk_index output_format=hec
