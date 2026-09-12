@@ -1,0 +1,18 @@
+# ============================================================
+# Data Exfiltration Detection
+# Project: Splunk RBA Attack Chain Detection
+#
+# Detects execution of curl or tar and generates
+# a risk event with a score of 40.
+# ============================================================
+
+index=soc_lab sourcetype=linux_audit
+| rex field=_raw "exe=\"(?<exe>[^\"]+)\""
+| where exe IN ("/usr/bin/curl", "/usr/bin/tar")
+| eval risk_score=40
+| eval risk_object=host
+| eval risk_object_type="system"
+| eval annotation="Possible data exfiltration"
+| eval sourcetype="risk_event"
+| eval source="RBA - DATA EXFILTRATION"
+| collect index=risk_index output_format=hec
