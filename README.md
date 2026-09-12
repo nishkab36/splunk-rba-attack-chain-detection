@@ -58,7 +58,7 @@ Failed SSH authentication events are collected from Linux secure logs and assign
 
 #### Detection Result
 
-![SSH Brute Force Detection](screenshots/02-detection/01-ssh-brute-force-detection.png)
+![SSH Brute Force Detection](screenshots/02-detection/01-ssh-bruteforce-detection.png)
 
 ---
 
